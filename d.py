@@ -54,6 +54,13 @@ def calculate_and_plot():
     else:
         print("Your investment outperformed the S&P 500!")
 
+
+    #S&P 500 capital values for plotting
+    sp_capital_growth = (sp_close / price_on_date_1) * p
+    final_sp_capital = sp_capital_growth.iloc[-1]
+
+
+
     # 6. Plotting
     plt.figure(figsize=(8, 5))
     
@@ -61,11 +68,11 @@ def calculate_and_plot():
     plt.plot(mapped_years, values, marker='o', color='b', label='Fixed Rate Investment')
     
     # Plot S&P 500 using its index year vs its close price
-    plt.plot(data.index.year, sp_close, color='green', label='S&P 500 Price')
+    plt.plot(data.index.year, sp_capital_growth, color='green', label='S&P 500 Capital Growth')
     
     # Highlight start/end points as you requested
     plt.scatter([data.index.year[0], data.index.year[-1]], 
-                [price_on_date_1, price_on_date_2], color='red', zorder=5)
+                [p, final_sp_capital], color='red', zorder=5)
 
     plt.title("Investment Comparison: Fixed Rate vs S&P 500")
     plt.xlabel("Year")
